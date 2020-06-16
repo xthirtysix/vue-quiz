@@ -13,7 +13,8 @@
         <b-button
           href="#"
           class="variant"
-          variant="primary">
+          variant="primary"
+          @click="onAnswer(variants[i].isCorrect)">
           {{ variant.value }}
         </b-button>
       </li>
@@ -88,6 +89,9 @@ export default {
       this.variants[correctVariant] = {
         isCorrect: true, value: this.correctAnswer,
       };
+    },
+    onAnswer(isCorrect) {
+      this.$emit('answered', isCorrect);
     },
   },
   created() {
