@@ -2,7 +2,7 @@
   <div>
     <b-alert
       show
-      style="max-width: 40rem; margin: 0 auto;"
+      :style="`max-width: 40rem; margin: 0 auto; height: ${height}px`"
       variant="success">
       <h4 class="alert-heading">Well done!</h4>
       <hr>
@@ -13,6 +13,9 @@
 
 <script>
 export default {
+  props: {
+    height: Number,
+  },
   methods: {
     onNextQuestion() {
       this.$emit('confirmed');

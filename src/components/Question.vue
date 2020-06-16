@@ -1,8 +1,9 @@
 <template>
   <b-card
-    tag="question"
+    tag="div"
     style="max-width: 40rem; margin: 0 auto;"
     class="mb-2"
+    id="question"
   >
     <template v-slot:header>
       <h3>{{ question }}</h3>
