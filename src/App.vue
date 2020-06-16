@@ -2,10 +2,14 @@
   <div id="app" class="container">
     <h1>{{ header }}</h1>
     <hr>
-    <transition>
+    <p style="max-width: 40rem; margin: 0 auto 1rem; text-align: right">
+      Correct answers: {{ correctCount }}
+    </p>
+    <transition name="flip" mode="out-in">
       <component
         :is="mode"
-        @confirmed="mode = 'app-question'"
+        :getHeight="getHeight"
+        @confirmed="mode = 'app-question', height = 0"
         @answered="answered($event)"
       />
     </transition>
@@ -22,6 +26,7 @@ export default {
     return {
       header: 'Quiz app',
       mode: 'app-question',
+      correctCount: 0,
     };
   },
   components: {
@@ -32,6 +37,7 @@ export default {
     answered(isCorrect) {
       if (isCorrect) {
         this.mode = 'app-answer';
+        this.correctCount += 1;
       }
     },
   },
@@ -46,5 +52,29 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.flip-enter-active {
+  animation: flip-in 0.5s ease-out forwards;
+}
+
+.flip-leave-active {
+  animation: flip-out 0.5s ease-out forwards;
+}
+
+@keyframes flip-out {
+  from {
+    transform: rotateY(0);
+  } to {
+    transform: rotateY(90deg);
+  }
+}
+
+@keyframes flip-in {
+  from {
+    transform: rotateY(90deg);
+  } to {
+    transform: rotateY(0);
+  }
 }
 </style>
