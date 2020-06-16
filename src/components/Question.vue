@@ -14,7 +14,7 @@
           href="#"
           class="variant"
           variant="primary">
-          {{variant.value}}
+          {{ variant.value }}
         </b-button>
       </li>
     </ul>
@@ -65,15 +65,25 @@ export default {
           this.question = 'Oops... something went wrong';
       }
 
-      this.variants.forEach((variant, i) => {
-        this.variants[i].value = this.generateRandomNumber(
+      const numbers = [];
+
+      while (numbers.length < this.variants.length) {
+        const generatedNumber = this.generateRandomNumber(
           this.correctAnswer - VARIANTS_RANGE,
           this.correctAnswer + VARIANTS_RANGE,
           this.correctAnswer,
         );
+
+        if (numbers.indexOf(generatedNumber) === -1) {
+          numbers.push(generatedNumber);
+        }
+      }
+
+      numbers.forEach((number, i) => {
+        this.variants[i].value = number;
       });
 
-      const correctVariant = this.generateRandomNumber(0, this.variants.length);
+      const correctVariant = this.generateRandomNumber(0, this.variants.length - 1);
 
       this.variants[correctVariant] = {
         isCorrect: true, value: this.correctAnswer,
